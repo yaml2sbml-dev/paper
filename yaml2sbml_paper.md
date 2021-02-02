@@ -54,15 +54,15 @@ bibliography: paper.bib
 # Statement of need
 
 
-Ordinary Differential Equations (ODEs) are a vital tool in mechanisitic modelling of biological processes. ODE models span a wide range of scales and applications, from molecular to population level. Furthermore ODEs arise e.g. as discretization of Partial Differential Equation models or moments of stochastic systems.
+Ordinary Differential Equations (ODEs) are a vital tool in mechanisitic modelling of biological processes. ODE models span a wide range of scales and applications, from molecular to population level and arise e.g. as discretization of Partial Differential Equation models or moments of stochastic systems.
 
-The Systems Biological Markup Language (SBML) is a widely adopted community standard for specifying mechanistic models of biological systems. SBML comes with a large number of software tools supporting model simulation (TODO, cite COPASI, AMICI, d2d, dmod, the [biomodels.net] data base contains more than 1000 published models in the SBML format.
+The Systems Biological Markup Language (SBML) is a widely adopted community standard for specifying mechanistic models of biological systems. SBML comes with a large number of software tools supporting ODE model simulation (TODO, cite COPASI, AMICI, d2d, dmod, the [biomodels.net](biomodels.net) data base contains more than 1000 published models in the SBML format.
 
 Model parameters can be estimated from data via a maximum likelihood or maximum a posteriori estimator. Therefore the systems states need to be mapped to measured quantities by an observable function and a measurement noise model needs to be specified. The PEtab format was recently introduced to extend an SBML model by specifying observables, measurements, experimental conditions and parameters to be estimated in separate tab-separated value (TSV) files. [CITE TODO]. Currently 9 software toolboxes support PEtab as an input format.
 
 Despite its broad usage, constructing an SBML model from scratch is often tedious: Due to its broad scope, SBML models have a lot of required and optional keys, that complicate the definition of a valid SBML. Further SBML can be considered neither human readable nor human writeable.
 
-Therefore various approaches have been presented to facilitate model construction from text based input formats or in code [Cite simleSBML, MOCASIN, Antimony, ScrumPy, ...]. However, these tools have a different focus to our approach, as they have an text based input format tightly tied to a specific programming language as MOCCASIN (translating MATLAB code into SBML), others have a text based input format, that is centered around chemical reactions and not around ODEs directly (Antimony, ScrumPy), or only offer a python based way of defining SBMLs, instead of a text-based way (simpleSBML). Neither of the aforementioned tools support PEtab or other formats for specifying parameter estimation problems.
+Therefore various approaches have been presented to facilitate model construction from text based input formats or in code [Cite libsbml, simleSBML, MOCASIN, Antimony, ScrumPy, ...]. However, these tools have a different focus to our approach, as they have an text based input format tightly tied to a specific programming language as MOCCASIN (translating MATLAB code into SBML), others have a text based input format, that is centered around chemical reactions and not around ODEs directly (Antimony, ScrumPy), or only offer a python based way of defining SBMLs, instead of a text-based way (simpleSBML). Neither of the aforementioned tools support PEtab or other formats for specifying parameter estimation problems.
 
 Here we present a human readable and writeable format for ODE models based on yaml, that can be validated and translated into SBML and PEtab via the Python tool `yaml2sbml` or a command line interface (CLI). Furthermore `yaml2sbml` comes with a Python-based Model Editor, that allows to generate, import and export a YAML model within code and even completely circumvent the yaml input if desired.
 
@@ -133,5 +133,17 @@ The repository contains an extensive [format documentation](https://github.com/y
 
 # Examples
 
-# Acknowledgments
+`yaml2sbml`'s GitHub repository contains several jupyter notebooks for examples on a range of complexity. 
+
+## Introductory Examples
+
+Three notebooks use the Lotka-Volterra Equations as a small and well established example ODE to showcase the different functionalities of `yaml2sbml`: The format and the basic functionality of the python toolbox (Link: TODO), the CLI(Link: TODO) and the Model Editor(Link: TODO) (Figure 1A). The format features notebook (Link: TODO) showcases features of the format as time dependent or discontinuous right hand sides. (Figure 1B)
+
+## Real-world applications
+
+The Finite State Projection(FSP) apporximates the probability distribution of stochastic reaction networks by only considering a finite set of states. In the [FSP example](Link_to_example:TODO) `yaml2sbml`s Model Editor implements the FSP for a two-stage model of gene transmission as discussed e.g. in (Cite PNAS) (Figure 1C). This example shows how a large scale ODE containing hundreds of states can be implemented in less than 20 lines of code, by exploiting the structure of the problem.
+
+The Sorensen model is a well established model of human Glucose-Insulin metabolism, describing the dynamics of Glucose and Insulin in different compartments of the body via a 22-dimensional ODE. The jupyter notebook presents an implementation of the Sorensen model in the YAML input format and use the Model Editor to extend the model to encode an intravenuous glucose injection. This shows how `yaml2sbml` can easily extend a preexisting ODE model to encode e.g. patient specific treatment. (Figure 1D) 
+
+# Funding
 
