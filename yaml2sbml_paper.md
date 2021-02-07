@@ -1,14 +1,16 @@
 # yaml2sbml: Human readable and writable specification of ODE models in SBML 
 
 ---
+
 title: yaml2sbml: Human readable and writable specification of ODE models in SBML 
+
 tags:
 
   - Python
 
   - SBML
 
-  - Ordinary differential Equation
+  - Ordinary Differential Equation
 
   - YAML
 
@@ -17,39 +19,41 @@ tags:
   - name: Jakob Vanhoefer
     orcid: 0000-0002-3451-1701
     affiliation: 1 
-    
-  - name: Marta R. Matos
-    orcid: TODO
+
+  - name: Marta R. A. Matos
+    orcid: 0000-0003-4288-1005
     affiliation: 2
-    
+
   - name: Dilan Pathirana
     orcid: 0000-0001-7000-2659
     affiliation: 1
-    
+
   - name: Yannik Schälte
     orcid: 0000-0003-1293-820X
-    affiliation: TODO "3, 4" # (Multiple affiliations must be quoted)
-    
+    affiliation: "3, 4" # (Multiple affiliations must be quoted)
+
   - name: Jan Hasenauer
     orcid: 0000-0002-4935-3312
-    affiliation: TODO "1, 3, 4??" # (Multiple affiliations must be quoted)
-    
+    affiliation: "1, 3, 4" # (Multiple affiliations must be quoted)
 
 affiliations:
     
+
     - name: Faculty of Mathematics and Natural Sciences, University of Bonn, Bonn, Germany
     index: 1
     
-    - name: TODO Martas affiliation
+    - name: The Novo Nordisk Foundation Center for Biosustainability, Technical University of Denmark, DK-2800 Kgs. Lyngby, Denmark
+
     index: 2
     
-    - name: Yanniks affiliation, HMGU
+    - name: Institute of Computational Biology, Helmholtz Zentrum München, Neuherberg, Germany
     index: 3
     
-    - name: Yannik TUM?
+    - name: Department of Mathematics, Technical University Munich, Garching, Germany
     index: 4
 
 date: 31 January 2021
+
 bibliography: bibliography.bib
     
 
@@ -57,20 +61,22 @@ bibliography: bibliography.bib
 
 # Summary
 
-Ordinary Differential Equations are a common model type throughout all natural sciences. The Systems Biological Markup Language (SBML) on the other hand is a widely adopted community standard for specifying dynamic models in the field of systems biology, that was recently extended to the PEtab format for describing parameter estimation problems. There exist a large number of software pipelines for simulating SBML models and performing parameter estimation for PEtab problems. Specifying an ODE model in SBML would grant direct access to these software pipelines. Since SBML is considered neither human-readable nor human-writable, an easy to use approach to construct SBML/PEtab models for a given ODE will facilitate model generation. In this contribution we present `yaml2sbml`,  a python tool for converting ODE models specified in an easy to read and write YAML file into SBML/PEtab. Further `yaml2sbml` comes with a validator for the input YAML, a Command Line Interface and a Model Editor to build an input YAML within python code. Several examples highlight the usage of `yaml2sbml` on realistic problems. 
+Ordinary differential equations (ODEs) are a common model type throughout all natural sciences. The Systems Biological Markup Language (SBML) on the other hand is a widely adopted community standard for specifying dynamic models in the field of systems biology, that was recently extended to the PEtab format for describing parameter estimation problems. There exist a large number of software pipelines for simulating SBML models and performing parameter estimation for PEtab problems. Specifying an ODE model in SBML would grant direct access to these software pipelines. Since SBML is considered neither human-readable nor human-writable, an easy-to use-approach to construct SBML/PEtab models for a given ODE will facilitate model generation. In this contribution we present `yaml2sbml`,  a python tool for converting ODE models specified in an easy to read and write YAML file into SBML/PEtab. Further `yaml2sbml` comes with a validator for the input YAML, a Command Line Interface and a Model Editor to build an input YAML within python code. Several examples highlight the usage of `yaml2sbml` on realistic problems. 
 
 # Statement of need
 
+Ordinary differential equations (ODEs) are a vital tool in mechanistic modelling of biological processes. ODE models span a wide range of scales and applications, from molecular to population level [@RaimundezDud2020_arxiv] and arise e.g. as discretizations of Partial Differential Equation models [@FischerFie2019] or moments of stochastic systems [@Engblom2006].
 
-Ordinary Differential Equations (ODEs) are a vital tool in mechanisitic modelling of biological processes. ODE models span a wide range of scales and applications, from molecular to population level [@RaimundezDud2020_arxiv] and arise e.g. as discretization of Partial Differential Equation models [@FischerFie2019] or moments of stochastic systems [@Engblom2006].
-
-The Systems Biological Markup Language (SBML) is a widely adopted community standard for specifying mechanistic models of biological systems [@HuckaFin2003]. SBML comes with a large number of software tools supporting ODE simulation [@HoopsSah2006; @FroehlichWei2020; @RaueSte2015; @KaschekMad2019]. The [biomodels.net](biomodels.net) data base contains more than 1000 published models in the SBML format [@NovereBor2006].
+The Systems Biological Markup Language (SBML) is a widely adopted community standard for specifying mechanistic models of biological systems [@HuckaFin2003]. A large number of software tools support ODE simulation from SBML models [@HoopsSah2006; @FroehlichWei2020; @RaueSte2015; @KaschekMad2019]. The [biomodels.net](biomodels.net) data base contains more than 1000 published models in the SBML format [@NovereBor2006].
+> [name=Yannik Schälte] Not sure if biomodels is needed
 
 Model parameters can be estimated from data via a maximum likelihood or maximum a posteriori estimator. Therefore the systems states need to be mapped to measured quantities by an observable function and a measurement noise model needs to be specified. The PEtab format was recently introduced to extend an SBML model by specifying observables, measurements, experimental conditions and parameters to be estimated in tab-separated value files  [@SchmiesterSch2020]. Currently 9 software toolboxes support PEtab as an input format.
 
-Despite its broad usage, constructing an SBML model from scratch is often tedious and SBML can be considered neither human-readable nor human-writeable. Therefore various approaches to facilitate model construction from text based input formats or in code have been presented [@BornsteinKea2008; @CannistraMed2015; @GomezHuc2016; @SmithBer2009; @Poolman2006]. However, these tools have a different focuses to our approach, as they have e.g. an text based input format tightly tied to a specific programming language (e.g. @GomezHuc2016 translating MATLAB code into SBML), others have a text based input format, that is centered around chemical reactions and not around ODEs directly [e.g. @Poolman2006], or only offer a text-based [@SmithBer2009] or Python based way of defining SBMLs [@CannistraMed2015]. Neither of the aforementioned tools support PEtab or other formats for specifying parameter estimation problems.
+Despite its broad usage, constructing an SBML model from scratch is often tedious and SBML can be considered neither human-readable nor human-writeable. Therefore various approaches to facilitate model construction from text based input formats or in code have been presented [@BornsteinKea2008; @CannistraMed2015; @GomezHuc2016; @SmithBer2009; @Poolman2006]. However, these tools have a different focuses than our approach, as they have e.g. an text based input format tightly tied to a specific programming language (e.g. @GomezHuc2016 translating MATLAB code into SBML), others have a text based input format that is centered around chemical reactions and not around ODEs directly [e.g. @Poolman2006], or only offer a text-based [@SmithBer2009] or Python based way of defining SBMLs [@CannistraMed2015]. Also, none of the aforementioned tools support PEtab or other formats for specifying parameter estimation problems.
+> [name=Yannik Schälte] I think it is crucial to sufficiently clarify the difference to other tools. Sounds good, but maybe one can try to make it even clearer. Also, maybe mention graphical model construction tools?
 
-Here we present a human readable and writeable format for ODE models based on YAML, that can be validated and translated into SBML and PEtab via the Python tool `yaml2sbml` or a command line interface (CLI). Furthermore `yaml2sbml` comes with a format validator and a Python-based Model Editor, that allows to generate, import and export a YAML model within code and even completely circumvent the YAML input if desired.
+Here we present a human readable and writeable format for ODE models based on YAML, that can be validated and translated into SBML and PEtab via the Python tool `yaml2sbml` or a command line interface (CLI). Furthermore, `yaml2sbml` comes with a format validator and a Python-based model editor that allows to generate, import and export a YAML model within code and even completely circumvent the YAML input if desired.
+> [name=Yannik Schälte] Maybe add that YAML is a very simple data-serialization language and programming language independent? I.e. highlight how easy it is to get into it and it requires no big setup. I think simplicity is yaml2sbml's strongest feature.
 
 
 # Tool and Format
@@ -114,7 +120,7 @@ The validation is also performed before translation to SBML and PEtab within the
 
 ## Command Line Interface
 
-`yaml2sbml` comes with a CLI, that offers SBML/PEtab conversion as well as format validation via the commands `yaml2sbml`, `yaml2petab` and `yaml2sbml_validate` respectively .
+Aside its Python API, `yaml2sbml` comes with a CLI that offers SBML/PEtab conversion as well as format validation via the commands `yaml2sbml`, `yaml2petab`, and `yaml2sbml_validate`, respectively .
 
 ## Model Editor
 
@@ -159,5 +165,6 @@ The Sorensen model is a well established model of human Glucose-Insulin metaboli
 # Funding
 
 TBD
+M.R.A.M. was funded by the Novo Nordisk Foundation (NNF10CC1016517 and NNF14OC0009473).
 
 # References
