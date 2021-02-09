@@ -91,14 +91,14 @@ The YAML-based input format is organized in blocks for different model component
 * `odes:` Define states, right hand side and initial values (as numeric values or parameters).
 * `parameters:` Define parameters, allows to initialize them to values. Further optional keys specify e.g. optimization bounds. These values are written in the PEtab parameter table.
 * `time:` Specify the time variable of the ODE.
-* `assignments:` Assignments assign a variable dynamically to a value. They are encoded as parameter assignment rules in the SBML model.
-* `functions:` Define functions, that can be used in other parts of the model.
-* `observables:` Maps ODE states to measurements. Observables are only encoded in PEtabs observable table. They do not have an efect on the resulting SBML.
-* `conditions:` Defines different experimental conditions. Conditions are only encoded in the PEtabs condition table. They do not have an efect on the resulting SBML.
+* `assignments:` Assign a variable dynamically to a value. These are encoded as parameter assignment rules in the SBML model.
+* `functions:` Define functions that can be used in other parts of the model.
+* `observables:` Maps ODE states to measurements. Observables are only encoded in PEtab's observable table. These do not have an efect on the resulting SBML.
+* `conditions:` Defines different experimental conditions. Conditions are only encoded in the PEtab condition table. These do not have an efect on the resulting SBML.
 
 ## Python Tool for SBML/PEtab translation 
 
-The Python tool `yaml2sbml` allows to translate models, that are specified in the YAML input format to SBML and PEtab via
+The Python tool `yaml2sbml` allows to translate ODE models specified in the YAML input format to SBML and PEtab via
 
 ```python
 import yaml2sbml
@@ -109,25 +109,26 @@ yaml2sbml.yaml2sbml(yaml_input_file, sbml_output_file)
 yaml2sbml.yaml2petab(yaml_input_file, PEtab_dir, model_name)
 ```
 
-Internally libsbml [@BornsteinKea2008] generates the resulting SBML.
+Internally, libsbml [@BornsteinKea2008] is used to generate the resulting SBML.
 
 ## Format Validation
 
-`yaml2sbml`  validates an input YAML  via
+`yaml2sbml` validates an input YAML via
 
 ```python
 yaml2sbml.validate_yaml(yaml_file)
 ```
 
-The validation is also performed before translation to SBML and PEtab within the translation routines. Further `libsbml`s SBML validator and PEtabs linter check the SBML/PEtab files after tranlsation.
+The validation is also performed internally before translating the YAML input to SBML and PEtab. Furthermore, `libsbml`s SBML validator and PEtab's linter are used to check the SBML/PEtab files after translation.
 
 ## Command Line Interface
 
 Aside its Python API, `yaml2sbml` comes with a CLI that offers SBML/PEtab conversion as well as format validation via the commands `yaml2sbml`, `yaml2petab`, and `yaml2sbml_validate`, respectively .
+> [name=Marta] Maybe add examples here too?
 
 ## Model Editor
 
-The `yaml2sbml` Model Editor allows to construct YAML models within Python code e.g. via
+The `yaml2sbml` Model Editor allows the user to construct YAML models within Python code e.g. via
 
 ```python
 model = yaml2sbml.YamlModel()
@@ -136,33 +137,34 @@ model.add_ode(state_id='x',
               initial_value=1)
 ```
 
-The Model Editor provides similar functionality to add, delete or modify the different components of YAML models. Further the Model Editor allows to import, modify and export models to YAML, SBML and PEtab (hence potentially circumventing YAML completely).
+The Model Editor provides similar functionality to add, delete or modify the different components of YAML models. Further the Model Editor allows the user to import, modify and export models to YAML, SBML and PEtab (hence potentially circumventing YAML completely).
 
 ## Availability and Code Development
 
-`yaml2sbml` is developed and published under the MIT license on [GitHub](https://github.com/yaml2sbml-dev/yaml2sbml). The tool can be `pip` installed via
+`yaml2sbml` is developed and published under the MIT license on [GitHub](https://github.com/yaml2sbml-dev/yaml2sbml). The tool can be installed from `PyPI` via
 
 ```shell
 pip install yaml2sbml
 ```
 
-The repository contains an extensive [format documentation](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/format_documentation.md), further documentation is hosted on [read th docs](https://yaml2sbml.readthedocs.io/en/latest/).  Jupyter notebooks contain [various examples](https://github.com/yaml2sbml-dev/yaml2sbml/tree/master/doc/examples) covering all aspects of the project. Code testing and continuous integration is performed via GitHub actions.
+The repository contains an extensive [format documentation](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/format_documentation.md), and further documentation is hosted on [readthedocs](https://yaml2sbml.readthedocs.io/en/latest/). Several examples are provided in [Jupyter notebooks](https://github.com/yaml2sbml-dev/yaml2sbml/tree/master/doc/examples), covering all aspects of the project. Code testing and continuous integration is performed via GitHub actions.
+> [name=Marta] Isn't this format documentation https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/format_documentation.md part of the readthedocs now? (in that case we'd need to change the link here)
 
 # Examples
 
-`yaml2sbml`'s GitHub repository contains several jupyter notebooks for examples on a range of complexity. 
+`yaml2sbml`'s GitHub repository contains several Jupyter notebooks with examples on a range of complexity. 
 
 ## Introductory Examples
 
-Three notebooks use the Lotka-Volterra Equations as a small and well established example ODE to showcase the different functionalities of `yaml2sbml`: The format and the basic functionality of the [Python toolbox](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Lotka_Volterra/Lotka_Volterra_python/Lotka_Volterra.ipynb), the [CLI](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Lotka_Volterra/Lotka_Volterra_CLI/Lotka_Volterra_CLI.ipynb) and the [Model Editor](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Lotka_Volterra/Lotka_Volterra_CLI/Lotka_Volterra_CLI.ipynb) (Figure 1A). The [format features](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Format_Features/Format_Features.ipynb) notebook showcases features of the format as time dependent or discontinuous right hand sides. (Figure 1B)
+Three notebooks use the Lotka-Volterra equations as a small and well established example ODE model to showcase the different functionalities of `yaml2sbml`: The format and the basic functionality of the [Python toolbox](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Lotka_Volterra/Lotka_Volterra_python/Lotka_Volterra.ipynb), the [CLI](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Lotka_Volterra/Lotka_Volterra_CLI/Lotka_Volterra_CLI.ipynb) and the [Model Editor](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Lotka_Volterra/Lotka_Volterra_CLI/Lotka_Volterra_CLI.ipynb) (Figure 1A). The [format features](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Format_Features/Format_Features.ipynb) notebook showcases features of the format, such as time dependent or discontinuous right hand sides. (Figure 1B)
 
 ## Real-world applications
 
 The Finite State Projection (FSP) apporximates the probability distribution of stochastic reaction networks by only considering a finite set of states [@MunskyKha2006]. In the [FSP example](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Finite_State_Projection/Finite_State_Projection.ipynb) `yaml2sbml`s Model Editor implements the FSP for a two-stage model of gene transmission as discussed e.g. in [@ShahrezaeiSwa2008] (Figure 1C). This example shows how `yaml2sbml` allows to implement a large scale ODE containing hundreds of states in less than 20 lines of code, by exploiting the structure of the problem.
 
-The Sorensen model is a well established model of human Glucose-Insulin metabolism, describing the dynamics of Glucose and Insulin in different compartments by an ODE with 22 states [@Sorensen1985]. The [jupyter notebook](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Sorensen/yaml2sbml_Sorensen.ipynb) presents an implementation of the Sorensen model in the YAML input format and use the Model Editor to extend the model to encode an intravenuous glucose injection.  `yaml2sbml` Model Editor extends a preexisting YAML model to encode  patient specific treatment (Figure 1D). 
+The Sorensen model is a well established model of human Glucose-Insulin metabolism, using an ODE with 22 states to describe the dynamics of Glucose and Insulin in different compartments [@Sorensen1985]. The [Jupyter notebook](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Sorensen/yaml2sbml_Sorensen.ipynb) presents an implementation of the Sorensen model in the YAML input format and uses the Model Editor to extend the model to encode an intravenuous glucose injection. The `yaml2sbml` Model Editor extends a preexisting YAML model to encode patient specific treatment (Figure 1D). 
 
-![**Figure 1** Simulation results for different examples of models specified using `yaml2sbml`. A) Lotka Volterra Equations B) Discontinuous right hand side of the ODE C) Finite State Projection of a two-stage model of gene transmission D) Sorensen Model of human Glucose-Insulin metabolism.](Figure1.png)
+![**Figure 1** Simulation results for different examples of ODE models specified using `yaml2sbml`. A) Lotka Volterra equations B) Discontinuous right hand side of the ODE C) Finite State Projection of a two-stage model of gene transmission D) Sorensen Model of human Glucose-Insulin metabolism.](Figure1.png)
 
 
 # Funding
