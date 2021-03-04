@@ -1,7 +1,4 @@
-# yaml2sbml: Human readable and writable specification of ODE models and its specification to SBML files
-
 ---
-
 title: yaml2sbml: Human readable and writable specification of ODE models and its specification to SBML files
 
 tags:
@@ -53,9 +50,7 @@ affiliations:
     index: 4
 
 date: 05 March 2021
-
-bibliography: bibliography.bib
-
+bibliography: paper.bib
 
 ---
 
