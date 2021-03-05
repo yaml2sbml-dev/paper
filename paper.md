@@ -1,5 +1,5 @@
 ---
-title: yaml2sbml: Human readable and writable specification of ODE models and its specification to SBML files
+title: "yaml2sbml: Human readable and writable specification of ODE models and its specification to SBML files"
 tags:
   - Python
   - SBML
