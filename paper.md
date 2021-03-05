@@ -136,11 +136,11 @@ The first application example considers the approximation of the Chemical Master
 
 The second application example considers a pharmacological process. We implement the Sorensen model, a well-established model of human Glucose-Insulin metabolism, describing the dynamics of glucose and insulin in different compartments by an ODE with 22 state variables [@Sorensen1985]. The [Jupyter Notebook](https://github.com/yaml2sbml-dev/yaml2sbml/blob/master/doc/examples/Sorensen/yaml2sbml_Sorensen.ipynb) presents an implementation of the Sorensen model in the YAML input format and uses the model editor to extend the preexisting YAML model to encode a patient specific treatment (Figure 1D).
 
-![**Figure 1** Simulation results for different models specified using `yaml2sbml`. A) Lotka Volterra equation B) Discontinuous right hand side of the ODE C) Finite State Projection of a two-stage model of gene transmission D) Sorensen Model of human Glucose-Insulin metabolism.](Figure1.png)
+![Simulation results for different models specified using `yaml2sbml`. A) Lotka Volterra equation B) Discontinuous right hand side of the ODE C) Finite State Projection of a two-stage model of gene transmission D) Sorensen Model of human Glucose-Insulin metabolism.](Figure1.png)
 
 # Acknowledgement
 
-The authors thank Elba Raimúndez Álvarez for her help designing the logo.
+The authors thank Elba Raimúndez for her help designing the logo.
 
 # Funding
 
@@ -148,8 +148,10 @@ TBD
 
 J.V. and D.P were funded by the Federal Ministry of Economic Affairs and Energy (Grant no. 16KN074236)
 
-J.V, D.P and J.H. were funded by
-
 M.R.A.M. was funded by the Novo Nordisk Foundation (NNF10CC1016517 and NNF14OC0009473).
+
+Y.S. was funded by [...]
+
+J.H. was funded by [...]
 
 # References
